@@ -115,10 +115,10 @@ public class Ryk_Robot
     public static int LowJunction = 530;
     public static int GroundJunction = 130;
     public static int FloorPosition = 40;
-    public static int DropoffPos = 930;
+    public static int DropoffPos = 950;
     public static int BottomCone = 80;
-    public static int BottomMidCone = 165;
-    public static int MiddleCone = 190;
+    public static int BottomMidCone = 150;
+    public static int MiddleCone = 175;
     public static int TopMidCone = 210;
     public static int TopCone = 250;
     public static double SlidePower_Up= 1;
@@ -150,7 +150,8 @@ public class Ryk_Robot
     public static RykPose2d Red_Start = new RykPose2d(35.5, 63.75, -90);
     public static RykPose2d Red_Push_Signal = new RykPose2d(35.5,0, -90);
     public static RykPose2d Red_Pickup = new RykPose2d(54.25,12, 0);
-    public static RykPose2d Red_Dropoff = new RykPose2d(35.5,12, -140);
+    public static RykPose2d Red_Inter_Pos = new RykPose2d(43.5,12, 0);
+    public static RykPose2d Red_Dropoff = new RykPose2d(35,11.5, -140);
     public static RykPose2d Red_Park_Pos1 = new RykPose2d(57,12, 0);
     public static RykPose2d Red_Park_Pos2 = new RykPose2d(36,12, 0);
     public static RykPose2d Red_Park_Pos3 = new RykPose2d(13,12, 0);
@@ -158,11 +159,11 @@ public class Ryk_Robot
     public static RykPose2d Blue_Start = new RykPose2d(-35.5, 63.75, -90);
     public static RykPose2d Blue_Push_Signal = new RykPose2d(-35.5,0, -90);
     public static RykPose2d Blue_Pickup = new RykPose2d(-54.25,12, -180);
+    public static RykPose2d Blue_Inter_Pos = new RykPose2d(-43.5,12, -180);
     public static RykPose2d Blue_Dropoff = new RykPose2d(-35.5,12, -40);
     public static RykPose2d Blue_Park_Pos1 = new RykPose2d(-13,12, -180);
     public static RykPose2d Blue_Park_Pos2 = new RykPose2d(-36,12, -180);
     public static RykPose2d Blue_Park_Pos3 = new RykPose2d(-57,12, -180);;
-
     public static double Slide_Ticks_Per_Rev = 537.7; // From REV Robotics Core HEX
 
     double dSlidePower = 1;
@@ -179,7 +180,7 @@ public class Ryk_Robot
     public static double xSlideInPos = 0.43;
 
     public static double auto_move_wait = 0.3; // before .5
-    public static double auto_drop_wait = 0; // before .5
+    public static double auto_drop_wait = 0.3; // before .5
     public static double auto_pickup_wait = 0.2; // before .65
     public static double auto_half_raise_wait = 0.3; // before .5
     public static double auto_raise_wait = 0; // before 2
