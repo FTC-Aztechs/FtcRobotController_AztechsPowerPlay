@@ -41,7 +41,7 @@ import static org.firstinspires.ftc.teamcode.Ryk_Robot.auto_move_wait;
 import static org.firstinspires.ftc.teamcode.Ryk_Robot.auto_pickup_wait;
 import static org.firstinspires.ftc.teamcode.Ryk_Robot.auto_raise_wait;
 import static org.firstinspires.ftc.teamcode.Ryk_Robot.auto_retract_wait;
-import static org.firstinspires.ftc.teamcode.Ryk_Robot.cyclesToRun;
+import static org.firstinspires.ftc.teamcode.Ryk_Robot.Red_cyclesToRun;
 import static org.firstinspires.ftc.teamcode.Ryk_Robot.xSlideDropPos;
 import static org.firstinspires.ftc.teamcode.Ryk_Robot.xSlideOutPos;
 import static org.firstinspires.ftc.teamcode.Ryk_Robot.xSlideInPos;
@@ -161,15 +161,15 @@ public class Ryk_Autonomous extends LinearOpMode {
         telemetry.update();
 
         buildPreloadTrajectory();
-        if(cyclesToRun > 0)
+        if(Red_cyclesToRun > 0)
             trajCycleDropOffTopCone = buildCycleTrajectory(TopMidCone); // Note: Drop slides to pick up the next cone, in this case Top Mid
-        if(cyclesToRun > 1)
+        if(Red_cyclesToRun > 1)
             trajCycleDropOffTopMidCone = buildCycleTrajectory(MiddleCone); // Note: Drop slides to pick up the next cone, in this case Middle
-        if(cyclesToRun > 2)
+        if(Red_cyclesToRun > 2)
             trajCycleDropOffMiddleCone = buildCycleTrajectory(BottomMidCone); // Note: Drop slides to pick up the next cone, in this case BottomMid
-        if(cyclesToRun > 3)
+        if(Red_cyclesToRun > 3)
             trajCycleDropOffBottomMidCone = buildCycleTrajectory(BottomCone); // Note: Drop slides to pick up the next cone, in this case Bottom
-        if(cyclesToRun > 4)
+        if(Red_cyclesToRun > 4)
             trajCycleDropOffBottomCone = buildCycleTrajectory(FloorPosition); // Note: Drop slides to pick up the next cone, in this case Floor
 
         telemetry.update();
@@ -291,35 +291,35 @@ public class Ryk_Autonomous extends LinearOpMode {
         telemetry.addLine(String.format("%d. Preload Trajectory completed in: %.3f ", iTeleCt++, trajectoryTimer.seconds()));
 
         // Cycle 1
-        if (cyclesToRun > 0) {
+        if (Red_cyclesToRun > 0) {
             trajectoryTimer.reset();
             Mavryk.mecanumDrive.followTrajectorySequence(trajCycleDropOffTopCone);
             telemetry.addLine(String.format("%d. Cycle 1 Trajectory completed in: %.3f ", iTeleCt++, trajectoryTimer.seconds()));
         }
 
         // Cycle 2
-        if (cyclesToRun > 1) {
+        if (Red_cyclesToRun > 1) {
             trajectoryTimer.reset();
             Mavryk.mecanumDrive.followTrajectorySequence(trajCycleDropOffTopMidCone);
             telemetry.addLine(String.format("%d. Cycle 2 Trajectory completed in: %.3f ", iTeleCt++, trajectoryTimer.seconds()));
         }
 
         // Cycle 3
-        if (cyclesToRun > 2) {
+        if (Red_cyclesToRun > 2) {
             trajectoryTimer.reset();
             Mavryk.mecanumDrive.followTrajectorySequence(trajCycleDropOffMiddleCone);
             telemetry.addLine(String.format("%d. Cycle 3 Trajectory completed in: %.3f ", iTeleCt++, trajectoryTimer.seconds()));
         }
 
         // Cycle 4
-        if (cyclesToRun > 3) {
+        if (Red_cyclesToRun > 3) {
             trajectoryTimer.reset();
             Mavryk.mecanumDrive.followTrajectorySequence(trajCycleDropOffBottomMidCone);
             telemetry.addLine(String.format("%d. Cycle 4 Trajectory completed in: %.3f ", iTeleCt++, trajectoryTimer.seconds()));
         }
 
         // Cycle 5
-        if (cyclesToRun > 4) {
+        if (Red_cyclesToRun > 4) {
             trajectoryTimer.reset();
             Mavryk.mecanumDrive.followTrajectorySequence(trajCycleDropOffBottomCone);
             telemetry.addLine(String.format("%d. Cycle 5 Trajectory completed in: %.3f ", iTeleCt++, trajectoryTimer.seconds()));

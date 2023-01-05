@@ -126,7 +126,9 @@ public class Ryk_Robot
     public static int ticks_stepSize = 13;
     public static int BUTTON_TRIGGER_TIMER_MS = 500;
 
-    public static int cyclesToRun = 4;
+    public static int Red_cyclesToRun = 4;
+    public static int Blue_cyclesToRun = 3;
+
 
     public static final String VUFORIA_KEY =
             "AZRnab7/////AAABmTUhzFGJLEyEnSXEYWthkjhGRzu8klNOmOa9WEHaryl9AZCo2bZwq/rtvx83YRIgV60/Jy/2aivoXaHNzwi7dEMGoaglSVmdmzPF/zOPyiz27dDJgLVvIROD8ww7lYzL8eweJ+5PqLAavvX3wgrahkOxxOCNeKG9Tl0LkbS5R11ATXL7LLWeUv5FP1aDNgMZvb8P/u96OdOvD6D40Nf01Xf+KnkF5EXwNQKk1r7qd/hiv9h80gvBXMFqMkVgUyogwEnlK2BfmeUhGVm/99BiwwW65LpKSaLVPpW/6xqz9SyPgZ/L/vshbWgSkTB/KoERiV8MsW79RPUuQS6NTOLY32I/kukmsis3MFst5LP/d3gx";
@@ -179,9 +181,9 @@ public class Ryk_Robot
     public static double xSlideDropPos = 0.5;
     public static double xSlideInPos = 0.43;
 
-    public static double auto_move_wait = 0.3; // before .5
-    public static double auto_drop_wait = 0.3; // before .5
-    public static double auto_pickup_wait = 0.2; // before .65
+    public static double auto_move_wait = 0; // before .5
+    public static double auto_drop_wait = 0.25; // before .5
+    public static double auto_pickup_wait = 0.1; // before .65
     public static double auto_half_raise_wait = 0.3; // before .5
     public static double auto_raise_wait = 0; // before 2
     public static double auto_extend_wait = 0; // before .8
