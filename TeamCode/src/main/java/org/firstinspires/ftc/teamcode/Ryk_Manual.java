@@ -37,6 +37,7 @@ import static com.qualcomm.robotcore.util.ElapsedTime.Resolution.MILLISECONDS;
 import static org.firstinspires.ftc.teamcode.Ryk_Robot.BUTTON_TRIGGER_TIMER_MS;
 import static org.firstinspires.ftc.teamcode.Ryk_Robot.FloorPosition;
 import static org.firstinspires.ftc.teamcode.Ryk_Robot.HighJunction;
+import static org.firstinspires.ftc.teamcode.Ryk_Robot.HighJunction_Manual;
 import static org.firstinspires.ftc.teamcode.Ryk_Robot.IntakeInsidePos;
 import static org.firstinspires.ftc.teamcode.Ryk_Robot.LeftMonkeyOutsidePos;
 import static org.firstinspires.ftc.teamcode.Ryk_Robot.LowJunction;
@@ -338,8 +339,8 @@ public class Ryk_Manual extends LinearOpMode {
         }
 
         int newPos = currentSlidePos + (int) ( -gamepad2.left_stick_y * ticks_stepSize);
-        if( newPos >= HighJunction)
-            newPos = HighJunction;
+        if( newPos >= HighJunction_Manual)
+            newPos = HighJunction_Manual;
         else if (newPos <= FloorPosition)
             newPos = FloorPosition;
         telemetry.addLine("newPos calc from gamePad2.left_stick_y: " + newPos);
@@ -353,7 +354,7 @@ public class Ryk_Manual extends LinearOpMode {
                 telemetry.addLine("GP2_Y triggered. Set Tom&Jerry to High position");
                 telemetry.update();
 
-                newPos = HighJunction;
+                newPos = HighJunction_Manual;
                 assumingHighPosition = false;
             }
         }
@@ -400,7 +401,7 @@ public class Ryk_Manual extends LinearOpMode {
         telemetry.addLine("newPos from Any button triggers: " + newPos);
         telemetry.update();
 
-        if( newPos != currentSlidePos && newPos >=FloorPosition && newPos <= HighJunction ) {
+        if( newPos != currentSlidePos && newPos >=FloorPosition && newPos <= HighJunction_Manual ) {
             Mavryk.setTargetPosition(Ryk_Robot.RykMotors.CAT_MOUSE, newPos);
             Mavryk.setRunMode(Ryk_Robot.RykMotors.CAT_MOUSE, RUN_TO_POSITION);
             if (newPos > currentSlidePos) {
@@ -460,8 +461,8 @@ public class Ryk_Manual extends LinearOpMode {
         }
 
         int newPos = currentSlidePos + (int) ( -gamepad2.left_stick_y * ticks_stepSize);
-        if( newPos >= HighJunction)
-            newPos = HighJunction;
+        if( newPos >= HighJunction_Manual)
+            newPos = HighJunction_Manual;
         else if (newPos <= FloorPosition)
             newPos = FloorPosition;
         telemetry.addLine("newPos calc from gamePad2.left_stick_y: "+ newPos);
@@ -475,7 +476,7 @@ public class Ryk_Manual extends LinearOpMode {
                 telemetry.addLine("GP2_Y triggered. Set Tom&Jerry to High position");
                 telemetry.update();
 
-                newPos = HighJunction;
+                newPos = HighJunction_Manual;
                 assumingHighPosition = false;
             }
         }
@@ -547,7 +548,7 @@ public class Ryk_Manual extends LinearOpMode {
         telemetry.addLine("newPos from Any button triggers: " + newPos);
         telemetry.update();
 
-        if( newPos != currentSlidePos && newPos >=FloorPosition && newPos <= HighJunction ) {
+        if( newPos != currentSlidePos && newPos >=FloorPosition && newPos <= HighJunction_Manual ) {
             Mavryk.setTargetPosition(Ryk_Robot.RykMotors.CAT_MOUSE, newPos);
             Mavryk.setRunMode(Ryk_Robot.RykMotors.CAT_MOUSE, RUN_TO_POSITION);
             if (newPos > currentSlidePos) {

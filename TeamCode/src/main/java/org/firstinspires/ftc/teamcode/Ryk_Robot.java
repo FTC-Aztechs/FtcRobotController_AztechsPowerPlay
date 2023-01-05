@@ -111,6 +111,7 @@ public class Ryk_Robot
 
     public static double UpAdjust = 10;
     public static int HighJunction = 1110;
+    public static int HighJunction_Manual = 1120;
     public static int MidJunction = 830;
     public static int LowJunction = 530;
     public static int GroundJunction = 130;
