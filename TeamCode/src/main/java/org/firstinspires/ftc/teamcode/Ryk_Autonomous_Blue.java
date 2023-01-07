@@ -267,15 +267,15 @@ public class Ryk_Autonomous_Blue extends LinearOpMode {
 
         // 1. Calculate Parking Position
 
-        if (tagOfInterest == null || tagOfInterest.id == LEFT) {
-            telemetry.addLine("Going to Position 1");
-            pos = 1;
+        if (tagOfInterest == null || tagOfInterest.id == RIGHT) {
+            telemetry.addLine("Going to Position 3");
+            pos = 3;
         } else if (tagOfInterest.id == MIDDLE) {
             telemetry.addLine("Going to Position 2");
             pos = 2;
-        } else {
-            telemetry.addLine("Going to Position 3");
-            pos = 3;
+        } else if ( tagOfInterest.id == LEFT){
+            telemetry.addLine("Going to Position 1");
+            pos = 1;
         }
 
         telemetry.update();

@@ -191,6 +191,7 @@ public class Ryk_Autonomous extends LinearOpMode {
         telemetry.addData("Status: ", "Pipeline set ...");
         telemetry.update();
 
+
         // We set the viewport policy to optimized view so the preview doesn't appear 90 deg
         // out when the RC activity is in portrait. We do our actual image processing assuming
         // landscape orientation, though.
