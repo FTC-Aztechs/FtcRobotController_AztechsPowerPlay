@@ -283,7 +283,7 @@ public class Ryk_Autonomous_Blue extends LinearOpMode {
         initMotorsAndServos(true);
 
         buildParkTrajectory(pos);
-        telemetry.update();
+//        telemetry.update();
 
         // Drop off preload
         trajectoryTimer.reset();

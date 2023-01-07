@@ -56,6 +56,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
 import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
@@ -251,7 +252,7 @@ public class Ryk_Autonomous_Red extends LinearOpMode {
 
             }
 
-//            telemetry.update();
+            telemetry.update();
             sleep(20);
         }
 
@@ -283,7 +284,7 @@ public class Ryk_Autonomous_Red extends LinearOpMode {
         initMotorsAndServos(true);
 
         buildParkTrajectory(pos);
-        telemetry.update();
+        //telemetry.update();
 
         // Drop off preload
         trajectoryTimer.reset();

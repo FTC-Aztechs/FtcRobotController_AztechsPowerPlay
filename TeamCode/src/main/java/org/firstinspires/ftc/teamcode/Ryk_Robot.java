@@ -116,7 +116,7 @@ public class Ryk_Robot
     public static int LowJunction = 530;
     public static int GroundJunction = 130;
     public static int FloorPosition = 40;
-    public static int DropoffPos = 950;
+    public static int DropoffPos = 960; //950
     public static int BottomCone = 80;
     public static int BottomMidCone = 150;
     public static int MiddleCone = 175;
@@ -127,8 +127,8 @@ public class Ryk_Robot
     public static int ticks_stepSize = 13;
     public static int BUTTON_TRIGGER_TIMER_MS = 500;
 
-    public static int Red_cyclesToRun = 5;
-    public static int Blue_cyclesToRun = 4;
+    public static int Red_cyclesToRun = 4; // Before 5 and 4
+    public static int Blue_cyclesToRun = 3;
 
 
     public static final String VUFORIA_KEY =
@@ -152,10 +152,10 @@ public class Ryk_Robot
 
     public static RykPose2d Red_Start = new RykPose2d(35.5, 63.75, -90);
     public static RykPose2d Red_Push_Signal = new RykPose2d(35.5,0, -90);
-    public static RykPose2d Red_Pickup = new RykPose2d(54.25,12, 0);
+    public static RykPose2d Red_Pickup = new RykPose2d(54.75,12, 0); // x = 54.25
     public static RykPose2d Red_Inter_Pos = new RykPose2d(43.5,12, 0);
-    public static RykPose2d Red_Dropoff = new RykPose2d(35,11.5, -140);
-    public static RykPose2d Red_Park_Pos1 = new RykPose2d(59,12, -180);
+    public static RykPose2d Red_Dropoff = new RykPose2d(36,11.5, -140); //  x = 35
+    public static RykPose2d Red_Park_Pos1 = new RykPose2d(59,12, 0);
     public static RykPose2d Red_Park_Pos2 = new RykPose2d(36,12, 0);
     public static RykPose2d Red_Park_Pos3 = new RykPose2d(13,12, 0);
 
