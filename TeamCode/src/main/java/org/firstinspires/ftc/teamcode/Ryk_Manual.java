@@ -182,8 +182,8 @@ public class Ryk_Manual extends LinearOpMode {
                 Mavryk.setTargetPosition(Ryk_Robot.RykMotors.CAT_MOUSE, FloorPosition);
                 Mavryk.setPower(Ryk_Robot.RykMotors.CAT_MOUSE, SlidePower_Down);
             }
-            telemetry.addLine("Intake out!");
-            telemetry.update();
+//            telemetry.addLine("Intake out!");
+//            telemetry.update();
         }
         if (!bIntake && Current_Intake_Position == RightFunkyOutsidePos) {
             boolean bHaveIRaisedTheClaw = false;
@@ -201,22 +201,22 @@ public class Ryk_Manual extends LinearOpMode {
                 Mavryk.setTargetPosition(Ryk_Robot.RykMotors.CAT_MOUSE, FloorPosition);
                 Mavryk.setPower(Ryk_Robot.RykMotors.CAT_MOUSE, SlidePower_Down);
             }
-            telemetry.addLine("Intake in!");
-            telemetry.update();
+//            telemetry.addLine("Intake in!");
+//            telemetry.update();
         }
 
         if(bIntake) {
             Sweeper_Power = 0.5;
             Mavryk.setCRPower(Ryk_Robot.RykServos.CAR_WASH, Sweeper_Power);
-            telemetry.addLine("Intake on!");
-            telemetry.update();
+//            telemetry.addLine("Intake on!");
+//            telemetry.update();
         }
         else {
             //TODO: When Retracting from Intake - need to make sure claw is raised to provide clearance.
             Sweeper_Power = 0;
             Mavryk.setCRPower(Ryk_Robot.RykServos.CAR_WASH, Sweeper_Power);
-            telemetry.addLine("Intake off!");
-            telemetry.update();
+//            telemetry.addLine("Intake off!");
+//            telemetry.update();
         }
 
     }

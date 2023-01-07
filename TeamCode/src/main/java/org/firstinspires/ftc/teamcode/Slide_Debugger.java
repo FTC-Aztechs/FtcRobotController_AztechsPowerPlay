@@ -64,7 +64,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import java.util.concurrent.TimeUnit;
 
-@Disabled
 @Config
 @TeleOp(name="Slide Test" , group="Manual mode")
 //@Disabled
