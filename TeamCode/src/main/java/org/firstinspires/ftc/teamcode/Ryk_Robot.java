@@ -31,6 +31,8 @@ package org.firstinspires.ftc.teamcode;
 
 //import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.acmerobotics.dashboard.config.Config;
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -97,6 +99,9 @@ public class Ryk_Robot
     public Servo RightFunky = null;
     public WebcamName eyeOfSauron = null;
     OpenCvWebcam Sauron = null;
+    public static BNO055IMU imu = null;
+
+
 
 //    public DigitalChannel Touche_Linac = null;
 //    public DigitalChannel Touche_Winch = null;
@@ -199,6 +204,9 @@ public class Ryk_Robot
     public static double CycleExtendFlamethrowerOffset = -0.5;
     public static double CycleRetractFlamethrowerOffset = -0.25;
 
+    public static Pose2d currentPose = new Pose2d();
+
+
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
     private ElapsedTime period  = new ElapsedTime();
@@ -263,8 +271,11 @@ public class Ryk_Robot
         mecanumDrive = new SampleMecanumDrive(hwMap);
         eyeOfSauron = hwMap.get(WebcamName.class, "Sauron");
 
+        imu = hwMap.get(BNO055IMU.class, "imu");
 
     }
+
+
     String formatAngle( AngleUnit angleUnit, double angle) {
         return formatDegrees(angleUnit.DEGREES.fromUnit(angleUnit, angle));
     }
@@ -278,6 +289,7 @@ public class Ryk_Robot
         for (VoltageSensor sensor : hwMap.voltageSensor) {
             double voltage = sensor.getVoltage();
             if (voltage > 0) {
+
                 result = Math.min(result, voltage);
             }
         }

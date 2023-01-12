@@ -337,6 +337,9 @@ public class Ryk_Autonomous_Red extends LinearOpMode {
 //        }
         trajectoryTimer.reset();
         Mavryk.mecanumDrive.followTrajectorySequence(trajParking);
+
+        Ryk_Robot.currentPose= Mavryk.mecanumDrive.getPoseEstimate();
+
         telemetry.addLine(String.format("%d. Park Trajectory completed in: %.3f ", iTeleCt++, trajectoryTimer.seconds()));
 
         telemetry.update();

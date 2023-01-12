@@ -36,26 +36,34 @@ import static com.qualcomm.robotcore.util.ElapsedTime.Resolution.MILLISECONDS;
 
 import static org.firstinspires.ftc.teamcode.Ryk_Robot.BUTTON_TRIGGER_TIMER_MS;
 import static org.firstinspires.ftc.teamcode.Ryk_Robot.FloorPosition;
-import static org.firstinspires.ftc.teamcode.Ryk_Robot.HighJunction;
 import static org.firstinspires.ftc.teamcode.Ryk_Robot.HighJunction_Manual;
 import static org.firstinspires.ftc.teamcode.Ryk_Robot.IntakeInsidePos;
 import static org.firstinspires.ftc.teamcode.Ryk_Robot.LeftMonkeyOutsidePos;
 import static org.firstinspires.ftc.teamcode.Ryk_Robot.LowJunction;
 import static org.firstinspires.ftc.teamcode.Ryk_Robot.MidJunction;
 import static org.firstinspires.ftc.teamcode.Ryk_Robot.MiddleCone;
+import static org.firstinspires.ftc.teamcode.Ryk_Robot.Red_Start;
 import static org.firstinspires.ftc.teamcode.Ryk_Robot.RightFunkyOutsidePos;
 import static org.firstinspires.ftc.teamcode.Ryk_Robot.SlidePower_Down;
 import static org.firstinspires.ftc.teamcode.Ryk_Robot.SlidePower_Up;
 import static org.firstinspires.ftc.teamcode.Ryk_Robot.TopMidCone;
+import static org.firstinspires.ftc.teamcode.Ryk_Robot.imu;
 import static org.firstinspires.ftc.teamcode.Ryk_Robot.ticks_stepSize;
 
 import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.acmerobotics.dashboard.telemetry.MultipleTelemetry;
+import com.acmerobotics.roadrunner.geometry.Pose2d;
+import com.acmerobotics.roadrunner.geometry.Vector2d;
+import com.acmerobotics.roadrunner.localization.Localizer;
 import com.outoftheboxrobotics.photoncore.PhotonCore;
+import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.teamcode.util.AxisDirection;
+import org.firstinspires.ftc.teamcode.util.BNO055IMUUtil;
 
 import java.util.concurrent.TimeUnit;
 
@@ -86,10 +94,11 @@ public class Ryk_Manual extends LinearOpMode {
     double Current_Intake_Position;
     double Sweeper_Power;
 
+    //SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
     //    private static ElapsedTime timer_gp1_buttonA;
 //    private static ElapsedTime timer_gp1_buttonX;
-//    private static ElapsedTime timer_gp1_buttonY;
+//    private static ElapsedTime timer_gp1_buttonY ;
 //    private static ElapsedTime timer_gp1_buttonB;
 //    private static ElapsedTime timer_gp1_dpad_up;
 //    private static ElapsedTime timer_gp1_dpad_down;
@@ -111,6 +120,9 @@ public class Ryk_Manual extends LinearOpMode {
     private static ElapsedTime timer_gp2_dpad_left = new ElapsedTime(MILLISECONDS);
     private static ElapsedTime timer_gp2_dpad_right = new ElapsedTime(MILLISECONDS);
 
+    private static ElapsedTime timer_gp1_left_bumper = new ElapsedTime(MILLISECONDS);
+
+
     private boolean assumingHighPosition = false;
     private boolean assumingMidPosition = false;
     private boolean assumingLowPosition = false;
@@ -118,6 +130,9 @@ public class Ryk_Manual extends LinearOpMode {
     private boolean assumingTopMidCone = false;
     private boolean assumingMiddleCone = false;
     private int currentSlidePos = FloorPosition;
+
+    private boolean changing_drive_mode = false;
+    private boolean fieldCentric = true;
 
 
     FtcDashboard rykDashboard;
@@ -131,15 +146,38 @@ public class Ryk_Manual extends LinearOpMode {
         Mavryk.init(hardwareMap);
 
         initMavryk();
+        Mavryk.mecanumDrive.setPoseEstimate(Red_Start.pose2d());
+
         waitForStart();
 
-
         while (opModeIsActive()) {
-            RykManualDrive();
             RykUpSlide_rtp();
             RykClaw();
             RykIntake();
             RykXSlide();
+
+            if(gamepad1.left_bumper) {
+                if (!changing_drive_mode) {
+                    timer_gp1_left_bumper.reset();
+                    changing_drive_mode = true;
+                } else if (timer_gp1_left_bumper.time(TimeUnit.MILLISECONDS) > BUTTON_TRIGGER_TIMER_MS) {
+                    fieldCentric = !fieldCentric;
+                    changing_drive_mode = false;
+                }
+            }
+
+            if(fieldCentric){
+                RykManualDrive_FieldCentric();
+                telemetry.addLine("Drive Mode: Field Centric");
+                telemetry.update();
+            }else{
+                RykManualDrive();
+                telemetry.addLine("Drive Mode: Forward Facing");
+                telemetry.update();
+            }
+
+
+
         }
     }
 
@@ -152,6 +190,11 @@ public class Ryk_Manual extends LinearOpMode {
         Current_Intake_Position = IntakeInsidePos;
 
         Mavryk.setPosition(Ryk_Robot.RykServos.FUNKY_MONKEY, Current_Intake_Position);
+
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
+        BNO055IMUUtil.remapZAxis(imu, AxisDirection.NEG_Y);
+        Ryk_Robot.imu.initialize(parameters);
 
         telemetry = new MultipleTelemetry(telemetry, FtcDashboard.getInstance().getTelemetry());
         telemetry.addLine("Status: Robot is ready to roll!");
@@ -420,6 +463,24 @@ public class Ryk_Manual extends LinearOpMode {
             }
             currentSlidePos = newPos;
         }
+    }
+
+    public void RykManualDrive_FieldCentric()
+    {
+
+        Localizer myLocaliizer = Mavryk.mecanumDrive.getLocalizer();
+        myLocaliizer.getPoseVelocity();
+        Pose2d poseEstimate = Mavryk.mecanumDrive.getPoseEstimate();
+        Vector2d input = new Vector2d( -gamepad1.left_stick_y,
+                                    -gamepad1.left_stick_x).rotated(-imu.getAngularOrientation().firstAngle);
+
+        Mavryk.mecanumDrive.setWeightedDrivePower(new Pose2d(input.getX(), input.getY(), -gamepad1.right_stick_x));
+        Mavryk.mecanumDrive.update();
+
+        telemetry.addData("gamepad 1 right stick y", -gamepad1.right_stick_y);
+        telemetry.update();
+
+        return;
     }
 }
 
